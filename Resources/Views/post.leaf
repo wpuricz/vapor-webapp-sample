@@ -1,0 +1,30 @@
+#extend("base")
+
+#export("body") {
+
+  
+  <form action="/posts" method="POST">
+    <div class="form-inline" id="content-form">
+        <label for="content">Content</label>
+        <input type="text" class="form-control" name="content" id="content" placeholder="Blog Post Content" maxlength="200">
+        <button class="btn btn-primary" type="submit">Add Post</button>
+    </div>
+  </form>
+
+
+  <table class="table">
+    #loop(posts, "posts") {
+        <form action="/posts/#(posts.id)/delete" method="post" class="form-inline">
+        	<div class="row">
+        		<div class="col-md-8">
+            			#(posts.content)
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-danger" type="submit">Delete</button>
+        		</div>
+      	</div>
+        </form>
+    }
+    
+  </table>
+}

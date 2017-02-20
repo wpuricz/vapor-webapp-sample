@@ -3,11 +3,13 @@ import Fluent
 import Foundation
 
 final class Post: Model {
+    var exists: Bool = false
+    
     var id: Node?
     var content: String
     
     init(content: String) {
-        self.id = UUID().uuidString.makeNode()
+        //self.id = UUID().uuidString.makeNode()
         self.content = content
     }
 
