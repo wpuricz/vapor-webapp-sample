@@ -4,27 +4,30 @@
 
   
   <form action="/posts" method="POST">
-    <div class="form-inline" id="content-form">
-        <label for="content">Content</label>
-        <input type="text" class="form-control" name="content" id="content" placeholder="Blog Post Content" maxlength="200">
+    <div class="form-inline" id="content-form" style="padding:30px 30px 30px 0px">
+        <input type="text" class="form-control" name="content" id="content" placeholder="Add Blog Post Content" maxlength="200" style="width:400px;padding-right:25px">
         <button class="btn btn-primary" type="submit">Add Post</button>
     </div>
   </form>
 
 
-  <table class="table">
+  <table class="table table-striped" style="width:60%">
+    <thead style="font-weight:bold">
+      <td>Blog Content</td>
+      <td>Delete</td>
+    </thead>
     #loop(posts, "posts") {
-        <form action="/posts/#(posts.id)/delete" method="post" class="form-inline">
-        	<div class="row">
-        		<div class="col-md-8">
-            			#(posts.content)
-            </div>
-            <div class="col-md-4">
+        
+      <tr>
+        <td style="width:90%">#(posts.content)</td>
+        <td>
+          <form action="/posts/#(posts.id)/delete" method="post" class="form-inline">
               <button class="btn btn-danger" type="submit">Delete</button>
-        		</div>
-      	</div>
-        </form>
+          </form>
+        </td>
+      </tr>
+
     }
-    
-  </table>
+    </table>
+
 }
