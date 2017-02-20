@@ -36,6 +36,10 @@ drop.get("version") { request in
 
 }
 
+(drop.view as? LeafRenderer)?.stem.cache = nil
+let myview: PostViewController = PostViewController()
+myview.addRoutes(drop:drop)
+
 drop.group("api") { api in
     api.group("v1") { v1 in
         
@@ -66,6 +70,6 @@ drop.group("api") { api in
     }
 }
 
-drop.resource("posts", PostController())
+//drop.resource("posts", PostController())
 
 drop.run()
