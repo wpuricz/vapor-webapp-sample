@@ -69,7 +69,8 @@ drop.group("api") { api in
         }
     }
 }
-
+let loginController: LoginController = LoginController()
+loginController.addRoutes(drop: drop) 
 //drop.resource("posts", PostController())
 
 drop.run()
