@@ -16,8 +16,10 @@ let drop = Droplet(
 
 drop.preparations.append(User.self)
 drop.preparations.append(Post.self)
-drop.middleware.append(AuthMiddleware<User>())
 drop.middleware.append(TrustProxyMiddleware())
+drop.middleware.append(AuthMiddleware<User>())
+
+//drop.middleware.append(LoginRedirectMiddleware(loginRoute: "/login"))
 
 drop.get { req in
     return try drop.view.make("welcome", [
@@ -37,12 +39,13 @@ drop.get("version") { request in
 }
 
 (drop.view as? LeafRenderer)?.stem.cache = nil
-let myview: PostViewController = PostViewController()
-myview.addRoutes(drop:drop)
+let postView: PostViewController = PostViewController()
+postView.addRoutes(drop:drop)
+
 
 drop.group("api") { api in
     api.group("v1") { v1 in
-        
+        let z = "m"
         let usersController = UsersController()
         
         // Registration

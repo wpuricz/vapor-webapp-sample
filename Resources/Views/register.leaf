@@ -1,0 +1,28 @@
+#extend("base")
+
+#export("body") {
+<form action="/register" method="POST">
+
+	<div class="form-group" id="username-form">
+		<label for="username">Username</label>
+		<input type="text" class="form-control" name="username" id="username" placeholder="" maxlength="25">
+	</div>
+
+	<div class="form-group" id="password-form">
+		<label for="password">Password</label>
+		<input type="password" class="form-control" name="password" id="password" placeholder="" maxlength="25">
+	</div>
+
+	<div class="form-group" id="password-form">
+		<label for="name">Name</label>
+		<input type="text" class="form-control" name="name" id="name" placeholder="" maxlength="50">
+	</div>
+
+	<div class="form-group" id="password-form">
+		<label for="email">Email</label>
+		<input type="text" class="form-control" name="email" id="email" placeholder="" maxlength="50">
+	</div>
+
+	<button class="btn btn-primary" type="submit">Register</button>
+</form>
+}

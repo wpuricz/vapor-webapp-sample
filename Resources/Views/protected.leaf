@@ -1,0 +1,5 @@
+#extend("base")
+
+#export("body") {
+  <h1>Page protected, please login</h1>
+}

@@ -42,6 +42,9 @@ final class User: Auth.User {
             
         case let credentials as APIKey:
             user = try User.query().filter("api_key", credentials.id).filter("api_secret", credentials.secret).first()
+        
+        case let credentials as Identifier:
+            user = try User.find(credentials.id)
             
         default:
             throw UnsupportedCredentialsError()
@@ -53,6 +56,11 @@ final class User: Auth.User {
             throw IncorrectCredentialsError()
         }
     }
+    
+//    static func login(username: String, password: String) throws -> Auth.User {
+//        let userpass = UsernamePassword(username:username,password:password)
+//        return try authenticate(credentials: userpass)
+//    }
     
     static func register(credentials: Credentials) throws -> Auth.User {
         var newUser: User
@@ -70,6 +78,7 @@ final class User: Auth.User {
         }
         
     }
+    
     
     static func register(credentials: Credentials, parameters: [String : String]) throws -> Auth.User {
         if var user = try self.register(credentials: credentials) as? User {

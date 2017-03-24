@@ -46,6 +46,8 @@ final class UsersController {
         }
     }
     
+    
+    
     func login(request: Request) throws -> ResponseRepresentable {
         guard let username = request.data["username"]?.string, let password = request.data["password"]?.string else {
             throw Abort.custom(status: Status.badRequest, message: "Missing username or password")

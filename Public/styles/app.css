@@ -49,3 +49,11 @@ body {
     display: inline-block;
     float: left;
 }
+
+.myAlert {
+    margin-top: 20px;
+}
+
+.btnLogin {
+    margin-right: 50px;
+}

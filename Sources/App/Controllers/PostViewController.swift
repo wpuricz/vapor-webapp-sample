@@ -7,11 +7,13 @@ final class PostViewController {
   func addRoutes(drop: Droplet) {
   	  drop.get("posts", handler: indexView)
   	  drop.post("posts", handler: addPost)
-      drop.post("posts",Post.self, "delete", handler: deletePost)
+    drop.post("posts",Post.self, "delete", handler: deletePost)
+      
   }
 
   func indexView(request:Request) throws -> ResponseRepresentable {
-
+    
+    
   	let posts = try Post.all().makeNode()
   	let params = try Node(node: [
   		"posts": posts

@@ -15,7 +15,7 @@
     <thead style="font-weight:bold">
       <td>Blog Content</td>
       <td>Delete</td>
-    </thead>
+        </thead>
     #loop(posts, "posts") {
         
       <tr>
