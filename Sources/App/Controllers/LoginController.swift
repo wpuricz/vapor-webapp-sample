@@ -38,8 +38,9 @@ final class LoginController {
         
         
         do {
-            let _ = try User.authenticate(credentials: credentials)
-            return Response(redirect: "/posts")
+            //let _ = try User.authenticate(credentials: credentials)
+            try request.auth.login(credentials, persist: true)
+            return Response(redirect: "/secure/posts")
         } catch let e as TurnstileError {
             let params = try Node(node: ["error":"Invalid username or password"])
             return try drop.view.make("login", params)
@@ -72,7 +73,7 @@ final class LoginController {
             try _ = User.register(credentials: credentials, parameters: parameters)
             //try User.login(username:username,password:password)
             //return try JSON(node: ["success": true, "user": request.user().makeNode()])
-            return Response(redirect: "/posts")
+            return Response(redirect: "/secure/posts")
         } catch let e as TurnstileError {
             throw Abort.custom(status: Status.badRequest, message: e.description)
         }

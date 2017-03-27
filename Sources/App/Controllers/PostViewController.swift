@@ -4,19 +4,20 @@ import HTTP
 final class PostViewController {
 
   
-  func addRoutes(drop: Droplet) {
-  	  drop.get("posts", handler: indexView)
-  	  drop.post("posts", handler: addPost)
-    drop.post("posts",Post.self, "delete", handler: deletePost)
-      
-  }
+  
 
   func indexView(request:Request) throws -> ResponseRepresentable {
-    
+    let user: User?
+    do {
+        user = try request.auth.user() as? User
+    }catch {
+        return Response(redirect: "/login")
+    }
     
   	let posts = try Post.all().makeNode()
   	let params = try Node(node: [
-  		"posts": posts
+  		"posts": posts,
+  		"name": user?.name
   		])
   	return try drop.view.make("post",params)
   }

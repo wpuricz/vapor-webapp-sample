@@ -19,7 +19,6 @@ drop.preparations.append(Post.self)
 drop.middleware.append(TrustProxyMiddleware())
 drop.middleware.append(AuthMiddleware<User>())
 
-//drop.middleware.append(LoginRedirectMiddleware(loginRoute: "/login"))
 
 drop.get { req in
     return try drop.view.make("welcome", [
@@ -38,10 +37,25 @@ drop.get("version") { request in
 
 }
 
+// Don't cache leaf so we can reload without restarting
 (drop.view as? LeafRenderer)?.stem.cache = nil
-let postView: PostViewController = PostViewController()
-postView.addRoutes(drop:drop)
 
+
+// MARK: Secure Web Page Routes
+
+let protected = Auth.LoginRedirectMiddleware(loginRoute: "/login")
+drop.grouped(protected).group("secure") { secure in
+
+    let postView: PostViewController = PostViewController()
+    
+    secure.get("posts", handler: postView.indexView)
+    secure.post("posts", handler: postView.addPost)
+    secure.post("posts",Post.self, "delete", handler: postView.deletePost)
+    
+}
+
+
+// MARK: API Routes
 
 drop.group("api") { api in
     api.group("v1") { v1 in
@@ -72,8 +86,9 @@ drop.group("api") { api in
         }
     }
 }
+
+// MARK: Login Route
 let loginController: LoginController = LoginController()
-loginController.addRoutes(drop: drop) 
-//drop.resource("posts", PostController())
+loginController.addRoutes(drop: drop)
 
 drop.run()
