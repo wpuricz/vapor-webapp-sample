@@ -4,17 +4,15 @@ import HTTP
 final class PostViewController {
 
   
-  
-
   func indexView(request:Request) throws -> ResponseRepresentable {
     
-    let user = try request.auth.user() as? User
+    let user = try request.auth.user() as! User
+    let posts = try Post.query().filter("user_id", user.id!).all().makeNode()
     
-  	let posts = try Post.all().makeNode()
   	let params = try Node(node: [
   		"posts": posts,
-  		"name": user?.name
-  		])
+  		"name": user.name
+  	])
   	return try drop.view.make("post",params)
   }
 
@@ -24,16 +22,17 @@ final class PostViewController {
   	}
 
   	var post = Post(content: content)
+    post.user_id = (try request.auth.user() as! User).id!
   	try post.save()
 
-  	return Response(redirect: "/posts")
+  	return Response(redirect: "/secure/posts")
 
   }
     
     func deletePost(request:Request, post: Post) throws -> ResponseRepresentable {
         // need to fix, we are getting content = "3" instead of id = 3
         try post.delete()
-        return Response(redirect: "/posts")
+        return Response(redirect: "/secure/posts")
     }
 
 }

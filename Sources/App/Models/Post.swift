@@ -6,6 +6,7 @@ final class Post: Model {
     var exists: Bool = false
     
     var id: Node?
+    var user_id: Node?
     var content: String
     
     init(content: String) {
@@ -15,13 +16,15 @@ final class Post: Model {
 
     init(node: Node, in context: Context) throws {
         id = try node.extract("id")
+        user_id = try node.extract("user_id")
         content = try node.extract("content")
     }
 
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id": id,
-            "content": content
+            "content": content,
+            "user_id": user_id
         ])
     }
 }
@@ -33,6 +36,12 @@ extension Post {
     */
     public convenience init?(from string: String) throws {
         self.init(content: string)
+    }
+}
+
+extension Post {
+    func user() throws -> Parent<User> {
+        return try parent(user_id)
     }
 }
 

@@ -3,7 +3,7 @@
 #export("body") {
 
 Hello #(name)
-  <form action="/posts" method="POST">
+  <form action="/secure/posts" method="POST">
     <div class="form-inline" id="content-form" style="padding:30px 30px 30px 0px">
         <input type="text" class="form-control" name="content" id="content" placeholder="Add Blog Post Content" maxlength="200" style="width:400px;padding-right:25px">
         <button class="btn btn-primary" type="submit">Add Post</button>

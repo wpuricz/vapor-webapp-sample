@@ -91,4 +91,5 @@ drop.group("api") { api in
 let loginController: LoginController = LoginController()
 loginController.addRoutes(drop: drop)
 
+loadPreparations(drop: drop)
 drop.run()

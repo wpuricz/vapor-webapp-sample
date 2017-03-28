@@ -158,3 +158,9 @@ extension String: Error {
 
 }
 
+extension User {
+    func posts() throws -> Children<Post> {
+        return self.children()
+    }
+}
+
