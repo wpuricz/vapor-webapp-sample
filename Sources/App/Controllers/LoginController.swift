@@ -24,8 +24,8 @@ final class LoginController {
     }
     
     func logout(request: Request) throws -> ResponseRepresentable {
-        request.subject.logout()
-        return try drop.view.make("login")
+        try request.auth.logout()
+        return Response(redirect: "/login")
     }
     
     func login(request: Request) throws -> ResponseRepresentable {
