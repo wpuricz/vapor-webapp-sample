@@ -7,12 +7,8 @@ final class PostViewController {
   
 
   func indexView(request:Request) throws -> ResponseRepresentable {
-    let user: User?
-    do {
-        user = try request.auth.user() as? User
-    }catch {
-        return Response(redirect: "/login")
-    }
+    
+    let user = try request.auth.user() as? User
     
   	let posts = try Post.all().makeNode()
   	let params = try Node(node: [
